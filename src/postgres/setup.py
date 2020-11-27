@@ -1,6 +1,6 @@
 import os
 import psycopg2
-from typing import Any, Optional
+from typing import Optional
 
 
 def get_postgres_uri() -> Optional[str]:
@@ -12,12 +12,17 @@ def get_postgres_uri() -> Optional[str]:
     return os.environ.get("POSTGRES_URI")
 
 
-def connect_to_postgres():
+def connect_to_postgres(user_postgres_uri: Optional[str] = None):
     """
     Connect to postgres DB
+
+    Keyword argument:
+    user_postgres_uri -- URI of the postgres db given from user
     """
+    postgres_uri = user_postgres_uri if user_postgres_uri else get_postgres_uri()
+
     try:
-        connection = psycopg2.connect(get_postgres_uri)
+        connection = psycopg2.connect(postgres_uri)
         return connection
 
     except (Exception, psycopg2.Error) as error:
