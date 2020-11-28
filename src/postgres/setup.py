@@ -16,7 +16,7 @@ def get_postgres_uri() -> Optional[str]:
 
 
 def connect_to_postgres(
-    user_postgres_uri: Optional[str] = None,
+    user_postgres_uri: Optional[str],
 ) -> Optional[psycopg2.connection]:
     """
     Connect to postgres DB
@@ -24,7 +24,7 @@ def connect_to_postgres(
     Arguments:
         user_postgres_uri -- URI of the postgres db given from user
 
-    Returns: 
+    Returns:
         Optional - psycopg2.connection - connection to Postgres DB
     """
     postgres_uri = user_postgres_uri if user_postgres_uri else get_postgres_uri()
