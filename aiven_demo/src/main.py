@@ -4,6 +4,10 @@ from aiven_demo.src.kafka_services.consumer import (
     parse_subscribed_consumer_messages,
     close_consumer,
 )
+from aiven_demo.src.kafka_services.producer import (
+    start_producer,
+    send_messages_to_consumer,
+)
 
 import argparse
 import os
@@ -23,8 +27,13 @@ def main():
         help="Path to the Kafka Access Key (obtained from Aiven Console)",
         required=True,
     )
+    parser.add_argument(
+        "--cert-path",
+        help="Path to the Kafka Certificate Key (obtained from Aiven Console)",
+        required=True,
+    )
     parser.add_argument("--postgres-db-uri", help="Optional postgresDB URI")
-    parser.add_argument("--topic-name", help="Optional postgresDB URI")
+    parser.add_argument("--topic-name", help="Optional postgresDB URI", default=None)
     parser.add_argument(
         "--consumer",
         action="store_true",
@@ -43,15 +52,16 @@ def main():
     kwargs = {
         k: v
         for k, v in vars(args).items()
-        if k not in ("producer", "consumer", "postgres_db_uri")
+        if k not in ("producer", "consumer", "postgres_db_uri") and v is not None
     }
     if args.producer:
-        ## do something
-        print("producers")
+        producer = start_producer(**kwargs)
+        send_messages_to_consumer(producer)
+
     elif args.consumer:
-        consumer = start_consumer(vars(args)["postgres_db_uri"], **kwargs)
+        consumer = start_consumer(**kwargs)
         subscribe_consumer_by_topic(consumer)
-        parse_subscribed_consumer_messages(consumer)
+        parse_subscribed_consumer_messages(consumer, vars(args)["postgres_db_uri"])
         close_consumer(consumer)
 
 
@@ -76,3 +86,6 @@ def fail(message: str) -> exit:
 
 if __name__ == "__main__":
     main()
+
+
+# python3 aiven_demo/src/main.py --service-uri "aiven-kafka-jay-e55b.aivencloud.com:12739" --ca-path "/Users/jca/Desktop/Chrome/ca.pem" --key-path "/Users/jca/Desktop/Chrome/service.key"  --cert-path "/Users/jca/Desktop/Chrome/service.cert"  --producer

@@ -3,7 +3,7 @@ lint:
 	poetry run flake8
 
 check:
-	poetry run mypy .
+	poetry run mypy aiven_demo
 
 test:
 	poetry run pytest
@@ -12,4 +12,4 @@ install:
 	poetry install
 
 build:
-	poetry build
+	poetry run build

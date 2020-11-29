@@ -1,14 +1,13 @@
 from typing import Optional
 from kafka import KafkaConsumer
+import psycopg2.Error as DBError
 import json
 from typing import List
 
-from aiven_demo.src.postgres import connect_to_postgres, create_base_table
+from aiven_demo.src.postgres.setup import connect_to_postgres, create_base_table
 
 
-def start_consumer(
-    service_uri: str, ca_path: str, cert_path: str, key_path: str
-) -> KafkaConsumer.consumer:
+def start_consumer(service_uri: str, ca_path: str, cert_path: str, key_path: str):
     """Start the Kafka consumer"""
 
     consumer = KafkaConsumer(
@@ -27,43 +26,41 @@ def start_consumer(
     return consumer
 
 
-def subscribe_consumer_by_topic(
-    consumer: KafkaConsumer.consumer, topic_name: str = "sample_customer_profile"
-):
+def subscribe_consumer_by_topic(consumer, topic_name: str = "sample_customer_profile"):
     """Subscribe to Kafka topic"""
     consumer.subscribe([topic_name])
+    print("subscribed")
 
 
-def parse_subscribed_consumer_messages(
-    consumer: KafkaConsumer.consumer, pg_uri: Optional[str] = None
-):
+def parse_subscribed_consumer_messages(consumer, pg_uri: str):
     """Add consumer messages to postgres DB"""
 
     db_connection = connect_to_postgres(pg_uri)
     create_base_table(db_connection)
 
-    producter_messages = List[str]
+    producer_messages = List[str]
 
     for message in consumer:
-        producter_messages.append(message.value)
+        producer_messages.append(message.value)
 
-    # If there is one or more messsages
-    if producter_messages:
+    # If there is one or more messages
+    if producer_messages:
         try:
             cursor = db_connection.cursor()
-            for message in producter_messages:
+            for message in producer_messages:
+                print(f"Received message within producer: {message}")
 
                 query = f"""INSERT INTO account (first_name, last_name, age, email_address)
                         VALUES ('{message['first_name']}', '{message['last_name']}', '{message['age']}', {message['email_address']});"""
                 cursor.execute(query)
             cursor.close()
             db_connection.commit()
-        except (Exception, psycopg2.Error) as error:
+        except (Exception, DBError) as error:
             raise RuntimeError(f"Error while inserting into PG database: {error}")
         finally:
             db_connection.close()
 
 
-def close_consumer(consumer: KafkaConsumer.consumer):
+def close_consumer(consumer):
     """Close consumer"""
     consumer.close()
