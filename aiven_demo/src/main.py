@@ -86,6 +86,3 @@ def fail(message: str) -> exit:
 
 if __name__ == "__main__":
     main()
-
-
-# python3 aiven_demo/src/main.py --service-uri "aiven-kafka-jay-e55b.aivencloud.com:12739" --ca-path "/Users/jca/Desktop/Chrome/ca.pem" --key-path "/Users/jca/Desktop/Chrome/service.key"  --cert-path "/Users/jca/Desktop/Chrome/service.cert"  --producer

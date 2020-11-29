@@ -51,7 +51,6 @@ def parse_subscribed_consumer_messages(consumer, pg_uri: str):
 
                 query = f"""INSERT INTO customer_profile (first_name, last_name, age, email_address)
                         VALUES ('{str(message['first_name'])}', '{str(message['last_name'])}', '{message['age']}', {str(message['email_address'])!r});"""
-                print(query)
                 cursor.execute(query)
             cursor.close()
             db_connection.commit()

@@ -82,26 +82,14 @@ def start_producer(service_uri: str, ca_path: str, cert_path: str, key_path: str
 
     return producer
 
-def on_send_success(record_metadata):
-    print(record_metadata.topic)
-    print(record_metadata.partition)
-    print(record_metadata.offset)
-
-def on_send_error(excp):
-    print('I am an errback ', exc_info=excp)
-    # handle exceptions
-
 
 def send_messages_to_consumer(producer, topic_name: str = "sample_customer_profile"):
     """Send messages from Kafka producer to consumer"""
     data = get_fake_data()
     for message in data:
         print(f"Sending message from producer: {message}")
-        producer.send(topic_name, dumps(message).encode('utf-8'))
+        producer.send(topic_name, dumps(message).encode("utf-8"))
 
     # Wait for all messages to be sent
-    print('flushed')
+    print(f"All producermessages sent to consumer for topic {topic_name}")
     producer.flush()
-
-
-#python3 aiven_demo/src/main.py --service-uri "aiven-kafka-jay-e55b.aivencloud.com:12739" --ca-path "/Users/jca/Desktop/Chrome/ca.pem" --key-path "/Users/jca/Desktop/Chrome/service.key"  --cert-path "/Users/jca/Desktop/Chrome/service.cert" --consumer
