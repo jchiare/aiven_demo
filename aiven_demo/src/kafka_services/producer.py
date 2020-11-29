@@ -1,5 +1,5 @@
 from typing import List, Any
-from kafka import KafkaProducer
+from kafka import KafkaProducer # type: ignore
 from json import dumps
 
 

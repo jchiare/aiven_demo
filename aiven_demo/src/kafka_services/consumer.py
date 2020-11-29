@@ -1,8 +1,8 @@
-from kafka import KafkaConsumer
-from psycopg2 import Error as DBError
+from kafka import KafkaConsumer # type: ignore
+from psycopg2 import Error as DBError # type: ignore
 from json import loads
 
-from aiven_demo.src.postgres.setup import connect_to_postgres, create_base_table
+from aiven_demo.src.postgres.setup import connect_to_postgres, create_base_table # type: ignore
 
 
 def start_consumer(service_uri: str, ca_path: str, cert_path: str, key_path: str):

@@ -1,5 +1,4 @@
-import os
-from psycopg2 import Error as DBerror, connect as DBconnect
+from psycopg2 import Error as DBerror, connect as DBconnect # type: ignore
 from typing import Optional
 
 

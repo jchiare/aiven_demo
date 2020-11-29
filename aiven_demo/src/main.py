@@ -1,13 +1,13 @@
-from aiven_demo.src.kafka_services.consumer import (
+from aiven_demo.src.kafka_services.consumer import ( # type: ignore
     start_consumer,
     subscribe_consumer_by_topic,
     parse_subscribed_consumer_messages,
     close_consumer,
-)
-from aiven_demo.src.kafka_services.producer import (
+) 
+from aiven_demo.src.kafka_services.producer import ( # type: ignore
     start_producer,
     send_messages_to_consumer,
-)
+) 
 
 import argparse
 import os
@@ -79,7 +79,7 @@ def validate_args(args) -> None:
         fail("--producer or --consumer are required")
 
 
-def fail(message: str) -> exit:
+def fail(message: str):
     print(message, file=sys.stderr)
     sys.exit(1)
 
