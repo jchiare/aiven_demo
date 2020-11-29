@@ -1,8 +1,6 @@
-from typing import Optional
 from kafka import KafkaConsumer
 from psycopg2 import Error as DBError
 from json import loads
-from typing import List
 
 from aiven_demo.src.postgres.setup import connect_to_postgres, create_base_table
 
