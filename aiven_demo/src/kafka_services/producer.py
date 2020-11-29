@@ -1,5 +1,6 @@
 from typing import List, Any
 from kafka import KafkaProducer
+from json import dumps
 
 
 # Generated from https://www.mockaroo.com/
@@ -95,10 +96,11 @@ def send_messages_to_consumer(producer, topic_name: str = "sample_customer_profi
     """Send messages from Kafka producer to consumer"""
     data = get_fake_data()
     for message in data:
-        print(f"Sending message from consumer: {message}")
-        producer.send(topic_name, message).add_callback(on_send_success).add_errback(on_send_error)
+        print(f"Sending message from producer: {message}")
+        producer.send(topic_name, dumps(message).encode('utf-8'))
 
     # Wait for all messages to be sent
+    print('flushed')
     producer.flush()
 
 
