@@ -3,3 +3,6 @@
 
 #mypy cache
 .mypy_cache*
+
+# dist folder
+dist

@@ -3,7 +3,7 @@ from kafka import KafkaConsumer
 import json
 from typing import List
 
-from src.postgres import connect_to_postgres, create_base_table
+from aiven_demo.src.postgres import connect_to_postgres, create_base_table
 
 
 def start_consumer(

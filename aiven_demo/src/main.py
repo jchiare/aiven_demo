@@ -1,4 +1,4 @@
-from src.kafka_services.consumer import (
+from aiven_demo.src.kafka_services.consumer import (
     start_consumer,
     subscribe_consumer_by_topic,
     parse_subscribed_consumer_messages,
