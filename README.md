@@ -91,3 +91,4 @@ Things that I'd like to improve in the feature
 * Extend postgres DB functionality (more flexible parsing of kafka messages)
 * Make other kafka defaults (like group) explicit / configurable
 * Potentially use a Class object for Kafka Consumer/Producer
+* Add proper logging (and remove print statements)
