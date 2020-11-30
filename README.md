@@ -14,7 +14,12 @@ Using requirements.txt and pip
 Using Poetry (recommended method)
 `poetry add aiven_demo`
 
-**Note: I did not add this program to pypi for this homework**
+**Note: This demo is not yet on pypi**
+
+### Tested versions
+- Python 3.9
+- Kafka 2.6 (using Aiven)
+- Postgres DB 12 (using Aiven)
 
 ## Running the application 
 
@@ -41,7 +46,7 @@ You can get the respective values in the **Overview** section of your aiven cons
 
 Optionally, the makefile comes with other functionality such as linting, checking types, and running tests
 
-## Changing defaults
+## Changing Kafka defaults
 
 * Default is [sample_customer_profile](https://github.com/jchiare/aiven_demo/blob/main/aiven_demo/src/kafka_services/consumer.py#L27). Can also be modified with the `--topic-name` option within the CLI task. 
 * TODO: add more kafka default options here
@@ -57,6 +62,15 @@ Integration tests:
 1. Sending data from producer to consumer
 2. Sending data from consumer to postgres DBs
 
+## Attribution
+
+I used a variety of online resources to help me build this: 
+
+* [kafka/python](https://github.com/aiven/aiven-examples/tree/master/kafka/python) repo from aiven-examples - consumer and producer were largely based off this
+* [hackers and slackers](https://hackersandslackers.com/python-poetry-package-manager/) for learning more about poetry package manager
+* [kafka-python](https://github.com/dpkp/kafka-python) repository and its documentation
+* [aiven-kafka](https://github.com/gfrolov/aiven-kafka) demo to get inspired for the kafka to postgres connection
+
 # Todo
 
 Things that I'd like to improve in the feature
@@ -64,3 +78,4 @@ Things that I'd like to improve in the feature
 * Add testing (as noted above)
 * Extend postgres DB functionality (more flexible parsing of kafka messages)
 * Make other kafka defaults (like group) explicit / configurable
+* Potentially use a Class object for Kafka Consumer/Producer
