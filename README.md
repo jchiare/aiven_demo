@@ -21,6 +21,18 @@ Using Poetry (recommended method)
 - Kafka 2.6 (using Aiven)
 - Postgres DB 12 (using Aiven)
 
+### Environment Variables
+
+All of these env vars are optional. Please see step 1 of Running the application for other way of setting them
+
+- KAFKA_AIVEN_SERVICE_URI -> service uri to your Kafka service hosted by Aiven
+- KAFKA_AIVEN_CA_PATH -> ca path to your Kafka service hosted by Aiven
+- KAFKA_AIVEN_KEY_PATH -> key path to your Kafka service hosted by Aiven
+- KAFKA_AIVEN_CERT_PATH -> cert path to your Kafka service hosted by Aiven
+- POSTGRES_AIVEN_DB_URI -> service uri to your Postgres DB service hosted by Aiven
+
+Note that you might have to set the `PYTHONPATH` environment variable to the root of this folder
+
 ## Running the application 
 
 This app assumes you have an [Aiven Kafka](https://aiven.io/kafka) and [Postgres](https://aiven.io/postgresql) service created. 
