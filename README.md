@@ -65,7 +65,7 @@ Optionally, the makefile comes with other functionality such as linting, checkin
 
 ## How to run test
 
-**No tests were created for this homework**
+**No tests created**
 
 Ideally, I'd like to use pytest for unit tests
 1. Testing main functions in the consumer, producer, and postgres setup python files
